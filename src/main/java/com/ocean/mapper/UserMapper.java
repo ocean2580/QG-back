@@ -21,4 +21,10 @@ public interface UserMapper {
 
     @Delete("delete from sys_user where id = #{id}")
     int deleteById(@Param("id") Integer id);    // 指定参数
+
+    @Select("select * from sys_user where username like concat('%', #{username}, '%') limit #{pageNum}, #{pageSize}")
+    List<User> selectPage(@Param("pageNum") Integer num, @Param("pageSize") Integer size, @Param("username") String name);
+
+    @Select("select count(*) from sys_user where username like concat('%', #{username}, '%')")
+    Integer selectTotal(@Param("username")String name);
 }
