@@ -4,6 +4,10 @@ spring:
     url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2b8
     username: root
     password: DXH
+#     Failed to start bean 'documentationPluginsBootstrapper';
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
 
 server:
   port: 9090
@@ -11,6 +15,9 @@ server:
 # 注意配置项
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
