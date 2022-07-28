@@ -67,6 +67,19 @@
             <version>2.7.0</version>
         </dependency>
 
+        <!--        代码生成器-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -100,7 +113,7 @@
         </repository>
     </repositories>
 
-<!--  阿里云仓库  -->
+    <!--  阿里云仓库  -->
     <pluginRepositories>
         <pluginRepository>
             <id>public</id>
