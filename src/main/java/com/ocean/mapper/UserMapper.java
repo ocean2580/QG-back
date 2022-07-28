@@ -28,4 +28,7 @@ public interface UserMapper extends BaseMapper<User> {
 //
 //    @Select("select count(*) from sys_user where username like concat('%', #{username}, '%')")
 //    Integer selectTotal(@Param("username")String name);
+//
+//    @Select("select id from sys_user")
+//    List<Integer> getIdList();
 }

@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping
     public boolean save(@RequestBody User user) {   // 前端传来的json数据映射成对象
         // 新增|更新
-        return userService.save(user);
+        return userService.saveUser(user);
     }
 
     @GetMapping
@@ -75,7 +75,7 @@ public class UserController {
         if (!"".equals(address)) {
             queryWrapper.like("address",address);
         }
-
+//        queryWrapper.orderByDesc("id");
         return userService.page(page, queryWrapper);
     }
 }
