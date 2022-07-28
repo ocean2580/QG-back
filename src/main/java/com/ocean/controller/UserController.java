@@ -36,6 +36,11 @@ public class UserController {
         return userService.removeById(id);
     }
 
+    @PostMapping("/del/batch")
+    public boolean deleteBatch(@RequestBody List<Integer> ids) {   // restful
+        return userService.removeByIds(ids);
+    }
+
 
     /**
      *  // @RequestParam 接受 ?pageNum=1&pageSize=10
