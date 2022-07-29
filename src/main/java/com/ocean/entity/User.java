@@ -29,7 +29,7 @@ public class User {
     private String phone;
     private String address;
     @TableField("avatar_url")   // 自动将 下划线 转为 驼峰
-    private String avatar;
+    private String avatarUrl;
     @TableField("create_time")
     private LocalTime createTime;
 

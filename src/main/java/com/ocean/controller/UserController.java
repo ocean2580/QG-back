@@ -1,6 +1,5 @@
 package com.ocean.controller;
 
-import cn.hutool.core.stream.StreamUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
@@ -8,6 +7,8 @@ import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ocean.common.Constants;
+import com.ocean.common.Result;
 import com.ocean.controller.dto.UserDTO;
 import com.ocean.entity.User;
 import com.ocean.mapper.UserMapper;
@@ -24,9 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -36,37 +35,55 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public boolean login(@RequestBody UserDTO userDTO) {
+    public Result login(@RequestBody UserDTO userDTO) {
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
         if (StrUtil.isBlank(username) || StrUtil.isBlank(password)) {
-            return false;
+            return Result.error(Constants.CODE_400,"参数错误");
         }
-        return userService.login(userDTO);
+        UserDTO dto = userService.login(userDTO);
+        return Result.success(dto);
+    }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody UserDTO userDTO) {
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+        if (StrUtil.isBlank(username) || StrUtil.isBlank(password)) {
+            return Result.error(Constants.CODE_400,"参数错误");
+        }
+        return Result.success(userService.register(userDTO));
     }
 
     @PostMapping
-    public boolean save(@RequestBody User user) {   // 前端传来的json数据映射成对象
+    public Result save(@RequestBody User user) {   // 前端传来的json数据映射成对象
         // 新增|更新
-        return userService.saveUser(user);
+        return Result.success(userService.saveUser(user));
     }
 
+
+
     @GetMapping
-    public List<User> findAll() {
-        return userService.list();
+    public Result findAll() {
+        return Result.success(userService.list());
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Integer id) {   // restful
-        return userService.removeById(id);
+    public Result delete(@PathVariable Integer id) {   // restful
+        return Result.success(userService.removeById(id));
     }
 
     @PostMapping("/del/batch")
-    public boolean deleteBatch(@RequestBody List<Integer> ids) {   // restful
-        return userService.removeByIds(ids);
+    public Result deleteBatch(@RequestBody List<Integer> ids) {   // restful
+        return Result.success(userService.removeByIds(ids));
     }
 
-
+    @GetMapping("/username/{username}")
+    public Result findOne(@PathVariable String username) {
+        QueryWrapper<User> qw = new QueryWrapper<>();
+        qw.eq("username",username);
+        return Result.success(userService.getOne(qw));
+    }
     /**
      * // @RequestParam 接受 ?pageNum=1&pageSize=10
      *
@@ -89,7 +106,7 @@ public class UserController {
 
 //    mybatis-plus 写法
     @GetMapping("/page")
-    public IPage<User> findPage(@RequestParam("pageNum") Integer num,
+    public Result findPage(@RequestParam("pageNum") Integer num,
                                 @RequestParam("pageSize") Integer size,
                                 @RequestParam(value = "username", defaultValue = "") String name,
                                 @RequestParam(value = "email", defaultValue = "") String email,
@@ -107,7 +124,7 @@ public class UserController {
             queryWrapper.like("address", address);
         }
 //        queryWrapper.orderByDesc("id");
-        return userService.page(page, queryWrapper);
+        return Result.success(userService.page(page, queryWrapper));
     }
 
 
