@@ -1,16 +1,20 @@
 package com.ocean.controller;
 
+import cn.hutool.core.stream.StreamUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ocean.controller.dto.UserDTO;
 import com.ocean.entity.User;
 import com.ocean.mapper.UserMapper;
 import com.ocean.service.UserService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +34,16 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping("/login")
+    public boolean login(@RequestBody UserDTO userDTO) {
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+        if (StrUtil.isBlank(username) || StrUtil.isBlank(password)) {
+            return false;
+        }
+        return userService.login(userDTO);
+    }
 
     @PostMapping
     public boolean save(@RequestBody User user) {   // 前端传来的json数据映射成对象
