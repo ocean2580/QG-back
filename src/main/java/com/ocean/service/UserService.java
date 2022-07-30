@@ -11,6 +11,7 @@ import com.ocean.controller.dto.UserDTO;
 import com.ocean.entity.User;
 import com.ocean.exception.ServiceException;
 import com.ocean.mapper.UserMapper;
+import com.ocean.utils.TokenUtils;
 import org.openxmlformats.schemas.drawingml.x2006.main.STTextHorzOverflowType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
 
         if (one != null) {
             BeanUtil.copyProperties(one, userDTO, true);
+            // 设置token
+            String token = TokenUtils.generateToken(one.getId().toString(), one.getPassword());
+            userDTO.setToken(token);
             return userDTO;
         } else {
             throw new ServiceException(Constants.CODE_600, "用户名或密码错误");
