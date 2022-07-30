@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -31,6 +32,6 @@ public class User {
     @TableField("avatar_url")   // 自动将 下划线 转为 驼峰
     private String avatarUrl;
     @TableField("create_time")
-    private LocalTime createTime;
+    private Date createTime;
 
 }

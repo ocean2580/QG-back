@@ -5,6 +5,8 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ocean.common.Result;
 import com.ocean.entity.Files;
 import com.ocean.mapper.FilesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +109,50 @@ public class FilesController {
         queryWrapper.eq("md5", md5);
         List<Files> filesList = filesMapper.selectList(queryWrapper);
         return filesList.size() == 0 ? null : filesList.get(0);
+    }
+
+    /**
+     * 分页查询
+     */
+    @GetMapping("/page")
+    public Result findPage(@RequestParam Integer pageNum,
+                           @RequestParam Integer pageSize,
+                           @RequestParam(defaultValue = "") String name) {
+
+        QueryWrapper<Files> queryWrapper = new QueryWrapper<>();
+        // 查询未删除的记录
+        queryWrapper.eq("is_delete", false);
+        queryWrapper.orderByDesc("id");
+        if (!"".equals(name)) {
+            queryWrapper.like("name", name);
+        }
+        return Result.success(filesMapper.selectPage(new Page<>(pageNum, pageSize), queryWrapper));
+    }
+
+    @PostMapping("/update")
+    public Result update(@RequestBody Files files) {
+        return Result.success(filesMapper.updateById(files));
+    }
+
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id) {
+        Files files = filesMapper.selectById(id);
+        files.setIsDelete(true);
+        filesMapper.updateById(files);
+        return Result.success();
+    }
+
+    @PostMapping("/del/batch")
+    public Result deleteBatch(@RequestBody List<Integer> ids) {
+        // select * from sys_file where id in (id,id,id...)
+        QueryWrapper<Files> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id", ids);
+        List<Files> files = filesMapper.selectList(queryWrapper);
+        for (Files file : files) {
+            file.setIsDelete(true);
+            filesMapper.updateById(file);
+        }
+        return Result.success();
     }
 
 
