@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ocean.common.Result;
 import com.ocean.entity.Role;
 import com.ocean.service.IRoleService;
+import com.ocean.service.impl.RoleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
@@ -15,7 +17,7 @@ import java.util.List;
 public class RoleController {
 
     @Autowired
-    private IRoleService roleService;
+    private RoleServiceImpl roleService;
 
     @PostMapping
     public Result save(@RequestBody Role role) {   // 前端传来的json数据映射成对象
@@ -45,11 +47,13 @@ public class RoleController {
     }
 
     @GetMapping("/page")
-    public Result findPage(@RequestParam("pageNum") Integer num,
-                           @RequestParam("pageSize") Integer size) {
+    public Result findPage(@RequestParam Integer pageNum,
+                           @RequestParam Integer pageSize,
+                           @RequestParam String name) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id");
-        return Result.success(roleService.page(new Page<>(size,num),queryWrapper));
+        queryWrapper.like("name",name);
+//        queryWrapper.orderByDesc("id");
+        return Result.success(roleService.page(new Page<>(pageNum,pageSize),queryWrapper));
     }
 
 }

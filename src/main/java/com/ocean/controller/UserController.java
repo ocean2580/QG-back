@@ -31,7 +31,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private IUserService userService;
+    private UserServiceImpl userService;
 
     @PostMapping("/login")
     public Result login(@RequestBody UserDTO userDTO) {

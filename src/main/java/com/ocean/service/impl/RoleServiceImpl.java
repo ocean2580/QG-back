@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ocean.entity.Role;
 import com.ocean.mapper.RoleMapper;
 import com.ocean.service.IRoleService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 @Service
