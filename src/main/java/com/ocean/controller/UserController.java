@@ -11,11 +11,10 @@ import com.ocean.common.Constants;
 import com.ocean.common.Result;
 import com.ocean.controller.dto.UserDTO;
 import com.ocean.entity.User;
-import com.ocean.mapper.UserMapper;
-import com.ocean.service.UserService;
+import com.ocean.service.IUserService;
+import com.ocean.service.impl.UserServiceImpl;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,7 +31,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @PostMapping("/login")
     public Result login(@RequestBody UserDTO userDTO) {
@@ -60,8 +59,6 @@ public class UserController {
         // 新增|更新
         return Result.success(userService.saveUser(user));
     }
-
-
 
     @GetMapping
     public Result findAll() {

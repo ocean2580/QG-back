@@ -1,4 +1,4 @@
-package com.ocean.service;
+package com.ocean.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.log.Log;
@@ -11,13 +11,12 @@ import com.ocean.controller.dto.UserDTO;
 import com.ocean.entity.User;
 import com.ocean.exception.ServiceException;
 import com.ocean.mapper.UserMapper;
+import com.ocean.service.IUserService;
 import com.ocean.utils.TokenUtils;
-import org.openxmlformats.schemas.drawingml.x2006.main.STTextHorzOverflowType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends ServiceImpl<UserMapper, User> {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     private static final Log LOG = Log.get();
 

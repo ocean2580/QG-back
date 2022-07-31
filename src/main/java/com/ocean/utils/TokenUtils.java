@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.ocean.entity.User;
-import com.ocean.service.UserService;
+import com.ocean.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -18,10 +18,10 @@ import java.util.Date;
 @Component
 public class TokenUtils {
 
-    private static UserService staticUserService;
+    private static UserServiceImpl staticUserService;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @PostConstruct
     public void setUserService() {
