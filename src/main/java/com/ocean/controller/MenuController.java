@@ -15,10 +15,11 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author ocean
@@ -38,8 +39,21 @@ public class MenuController {
     }
 
     @GetMapping
-    public Result findAll() {
-        return Result.success(menuService.list());
+    public Result findAll(@RequestParam(defaultValue = "") String name) {
+
+        QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", name);
+//        queryWrapper.orderByDesc("id");
+
+        List<Menu> list = menuService.list();
+        //  一级菜单
+        List<Menu> parentNode = list.stream().filter(menu -> menu.getPid() == null).collect(Collectors.toList());
+        for (Menu menu : parentNode) {
+            // 一级菜单的子菜单
+            menu.setChildren(list.stream().filter(m -> menu.getId().equals(m.getPid())).collect(Collectors.toList()));
+
+        }
+        return Result.success(parentNode);
     }
 
     @DeleteMapping("/{id}")
@@ -63,9 +77,9 @@ public class MenuController {
                            @RequestParam Integer pageSize,
                            @RequestParam String name) {
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
+        queryWrapper.like("name", name);
 //        queryWrapper.orderByDesc("id");
-        return Result.success(menuService.page(new Page<>(pageNum,pageSize),queryWrapper));
+        return Result.success(menuService.page(new Page<>(pageNum, pageSize), queryWrapper));
     }
 }
 
