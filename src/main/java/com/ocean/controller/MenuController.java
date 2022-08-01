@@ -3,9 +3,12 @@ package com.ocean.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ocean.common.Constants;
 import com.ocean.common.Result;
+import com.ocean.entity.Dict;
 import com.ocean.entity.Menu;
 import com.ocean.entity.Role;
+import com.ocean.mapper.DictMapper;
 import com.ocean.service.IMenuService;
 import com.ocean.service.impl.MenuServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class MenuController {
 
     @Resource
     private MenuServiceImpl menuService;
+
+    @Resource
+    private DictMapper dictMapper;
 
     @PostMapping
     public Result save(@RequestBody Menu menu) {   // 前端传来的json数据映射成对象
@@ -80,6 +86,13 @@ public class MenuController {
         queryWrapper.like("name", name);
 //        queryWrapper.orderByDesc("id");
         return Result.success(menuService.page(new Page<>(pageNum, pageSize), queryWrapper));
+    }
+
+    @GetMapping("/icons")
+    public Result getIcons() {
+        QueryWrapper<Dict> queryWrapper = new QueryWrapper<Dict>();
+        queryWrapper.eq("type", Constants.DICT_TYPE_ICON);
+        return Result.success(dictMapper.selectList(queryWrapper));
     }
 }
 
