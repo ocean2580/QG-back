@@ -56,4 +56,19 @@ public class RoleController {
         return Result.success(roleService.page(new Page<>(pageNum,pageSize),queryWrapper));
     }
 
+    /**
+     * 角色与菜单之间的关系
+     */
+    @PostMapping("/roleMenu/{roleId}")
+    public Result roleMenu(@PathVariable Integer roleId, @RequestBody List<Integer> menuIds) {
+       roleService.setRoleMenu(roleId, menuIds);
+       return Result.success();
+    }
+
+    @GetMapping("/roleMenu/{roleId}")
+    public Result getRoleMenu(@PathVariable Integer roleId) {
+        return Result.success( roleService.getRoleMenu(roleId));
+    }
+
+
 }
