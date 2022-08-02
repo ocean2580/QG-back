@@ -34,4 +34,6 @@ public class User {
     @TableField("create_time")
     private Date createTime;
 
+    private String role;
+
 }
