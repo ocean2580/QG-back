@@ -1,8 +1,11 @@
 package com.ocean.controller.dto;
 
+import com.ocean.entity.Menu;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 /**
@@ -17,4 +20,6 @@ public class UserDTO {
     private String nickname;
     private String avatarUrl;
     private String token;
+    private String role;
+    private List<Menu> menus;
 }
