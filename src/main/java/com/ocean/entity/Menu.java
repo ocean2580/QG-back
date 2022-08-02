@@ -48,6 +48,6 @@ public class Menu {
     @JsonIgnore
     private Integer pid;
 
-
-
+    @TableField("page_path")
+    private String pagePath;
 }
