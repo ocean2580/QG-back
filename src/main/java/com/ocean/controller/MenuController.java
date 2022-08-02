@@ -44,6 +44,11 @@ public class MenuController {
         return Result.success(menuService.saveOrUpdate(menu));
     }
 
+    @GetMapping("/ids")
+    public Result findAllIds() {
+        return Result.success(menuService.list().stream().map(Menu::getId));
+    }
+
     @GetMapping
     public Result findAll(@RequestParam(defaultValue = "") String name) {
 
