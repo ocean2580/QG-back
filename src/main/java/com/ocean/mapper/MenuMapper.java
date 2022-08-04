@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author ocean
  * @since 2022-07-31
  */
-@Mapper
+
 public interface MenuMapper extends BaseMapper<Menu> {
 
 }

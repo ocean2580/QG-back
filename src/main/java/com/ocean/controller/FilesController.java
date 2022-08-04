@@ -9,11 +9,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ocean.common.Result;
 import com.ocean.entity.Files;
 import com.ocean.mapper.FilesMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -28,7 +28,7 @@ public class FilesController {
     @Value("${files.upload.path}")
     String fileUploadPath;
 
-    @Autowired
+    @Resource
     FilesMapper filesMapper;
 
     /**
