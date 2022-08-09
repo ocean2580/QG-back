@@ -9,4 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements IGoodsService {
 
+    @Override
+    public Boolean saveGoods(Goods goods) {
+        return saveOrUpdate(goods);
+    }
 }

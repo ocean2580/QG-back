@@ -35,7 +35,7 @@ public class StudentController {
         return Result.success(studentService.removeByIds(ids));
     }
 
-    @GetMapping("/studentName/{studentName}")
+    @GetMapping("/name/{studentName}")
     public Result findOne(@PathVariable String studentName) {
         QueryWrapper<Student> qw = new QueryWrapper<>();
         qw.eq("studentName",studentName);
@@ -45,7 +45,7 @@ public class StudentController {
     @GetMapping("/page")
     public Result findPage(@RequestParam("pageNum") Integer num,
                            @RequestParam("pageSize") Integer size,
-                           @RequestParam(value = "studentName", defaultValue = "") String name,
+                           @RequestParam(value = "name", defaultValue = "") String name,
                            @RequestParam(value = "institute", defaultValue = "") String institute) {
         IPage<Student> page = new Page<>(num, size);
         QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
