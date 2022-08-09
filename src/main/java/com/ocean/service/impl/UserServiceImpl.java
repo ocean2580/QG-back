@@ -21,6 +21,7 @@ import org.apache.commons.collections.list.AbstractLinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +30,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     private static final Log LOG = Log.get();
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
 
-    @Autowired
+    @Resource
     private RoleMenuMapper roleMenuMapper;
 
-    @Autowired
+    @Resource
     private MenuServiceImpl menuService;
 
     public boolean saveUser(User user) {
