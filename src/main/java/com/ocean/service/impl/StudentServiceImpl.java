@@ -8,4 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> implements IStudentService {
+    @Override
+    public Boolean saveStudent(Student student) {
+
+        return saveOrUpdate(student);
+    }
 }
