@@ -16,7 +16,7 @@ import java.util.Date;
 @TableName("sys_goods")
 public class Goods {
     @TableId(value = "lost_id", type = IdType.AUTO)
-    private int id;
+    private Integer id;
     @TableField("lost_name")
     private String goodsName;
     @TableField("lost_description")
