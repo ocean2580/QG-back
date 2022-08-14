@@ -11,7 +11,7 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
 
 server:
-  ip: 192.168.43.66
+  ip: localhost
   port: 9090
 
 # 省去 @MapperScanner, @Mapper
