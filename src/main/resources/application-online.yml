@@ -23,4 +23,4 @@ mybatis-plus:
 # 自定义
 files:
   upload:
-    path: /usr/springbooot/files/
+    path: /usr/springboot/files/
