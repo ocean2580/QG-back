@@ -11,7 +11,6 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
 
 server:
-  ip: 116.62.41.153
   port: 9090
 
 mybatis:
@@ -24,4 +23,4 @@ mybatis-plus:
 # 自定义
 files:
   upload:
-    path: /root/files/
+    path: /usr/springbooot/files/
