@@ -10,11 +10,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
+    private static final String FILE_PATH = "/usr/springboot/files/**";
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor())
                 .addPathPatterns("/**")     // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
-                .excludePathPatterns("/user/login","/user/register","/**/import","/**/export","/**/file/**");
+                .excludePathPatterns("/user/login","/user/register","/**/import","/**/export","/**/file/**",FILE_PATH);
 
         //TODO 文件可上传存储，但是无法下载
 
